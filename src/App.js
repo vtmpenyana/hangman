@@ -33,14 +33,28 @@ class App extends Component {
             let input = document.querySelector('#inputField');
             input.value = '';
             let randomNumber = Math.floor(Math.random() * (this.state.words.length -1))
+            let wordToShow = this.state.words[randomNumber];
 
-            //removing word from list
+            //removing word from list:        
             let listOfWords = this.state.words;
-            listOfWords.splice(listOfWords.indexOf(listOfWords[randomNumber]), 1);
-            this.setState({words: listOfWords ,correctWord: this.state.words[randomNumber], 
-                incompleteWord: this.state.words[randomNumber]
-                .replace(this.state.words[randomNumber][Math.floor(Math.random() * (this.state.words[randomNumber].length -1))], '_'),
+            if(this.state.correctWord === this.state.words[0]){
+                listOfWords.splice(listOfWords[0], 1);
+                console.log(`it was the first word: ${listOfWords[0]}, we've removed it`);
+            }
+            else{
+                listOfWords.splice(listOfWords[listOfWords.indexOf(randomNumber)], 1);
+                console.log(`it was this word: ${wordToShow}`);
+            }
+
+            
+
+            //updating the list:
+            this.setState({words: listOfWords ,correctWord: wordToShow, 
+                incompleteWord: wordToShow
+                .replace(wordToShow[Math.floor(Math.random() * (wordToShow.length -1))], '_'),
             currentScore : this.state.currentScore + 5});
+
+            console.log(`wordToShow: ${wordToShow} || incompleteWord: ${this.state.incompleteWord}`);
         }
         else{
             if(this.state.playerLives > 1){
