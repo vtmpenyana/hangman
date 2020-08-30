@@ -1,0 +1,1 @@
+export const INPUT_WORD = 'INPUT_WORD';

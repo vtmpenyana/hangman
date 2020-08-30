@@ -3,7 +3,21 @@ import TextBox from './TextBox';
 import ReactPlayer from 'react-player/lazy'
 import './App.css';
 import ErrorBoundry from './ErrorBoundry';
+import {connect} from 'react-redux';
+import {guessWord} from './actions';
 // Lazy load the YouTube player
+
+const mapStateToProps = state => {
+    return {
+        usersWord: state.usersWord
+    }
+}
+
+const mapDispatchToProps = dispatcher => {
+    return {
+        onInputChange : event => dispatcher(guessWord(event.target.value))
+    }
+}
 
 
 
@@ -114,4 +128,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
