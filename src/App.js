@@ -120,7 +120,7 @@ class App extends Component {
                     <a onClick={this.onSubmitClick} className="f6 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib mt2 mid-gray" href="#0">Submit</a>
                 </ErrorBoundry>
                 <div className='center'>
-                    <ReactPlayer url='https://www.youtube.com/watch?v=cGOeiQfjYPk' />
+                    <ReactPlayer controls={true} url='https://www.youtube.com/watch?v=cGOeiQfjYPk' />
                 </div>
             </div>
         )
