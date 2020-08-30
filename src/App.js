@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
 import TextBox from './TextBox';
+import ReactPlayer from 'react-player/lazy'
+import './App.css';
+// Lazy load the YouTube player
+
+
 
 class App extends Component {
     constructor(){
         super();
         this.state = {
             currentScore: 0,
-            playerLives: 5,
+            playerLives: 11,
             word: 'something',
             textValue: '',
             words: [],
@@ -91,9 +96,11 @@ class App extends Component {
                 </div>
                 <h2 className='pa4 f2'>{this.state.incompleteWord}</h2>
 
-                <TextBox onSearchChange={this.onSearchChange}/>
-
+                <TextBox onSearchChange={this.onSearchChange}/>               
                 <a onClick={this.onSubmitClick} className="f6 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib mt2 mid-gray" href="#0">Submit</a>
+                <div className='center'>
+                    <ReactPlayer url='https://www.youtube.com/watch?v=PMOISW3h3bw' />
+                </div>
             </div>
         )
     }
