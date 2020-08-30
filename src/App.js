@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TextBox from './TextBox';
 import ReactPlayer from 'react-player/lazy'
 import './App.css';
+import ErrorBoundry from './ErrorBoundry';
 // Lazy load the YouTube player
 
 
@@ -22,7 +23,10 @@ class App extends Component {
     }
 
     componentDidMount(){
-        fetch('https://random-word-api.herokuapp.com//word?number=10')
+        if(this.state.words.length < 1){
+            this.setState({incompleteWord: 'loading words, please wait...'});
+        }
+        fetch('https://random-word-api.herokuapp.com//word?number=100000')
         .then(response => response.json())
         .then(words => {
             const firstWord = words[0];
@@ -82,22 +86,25 @@ class App extends Component {
     }
 
     render(){
-        // console.log(`this is the actual word: ${this.state.correctWord}`);
         return(
             <div className='tc'>
                 <h1 className='bg-black-90 lh-copy white tracked'>{`Hangman!`}</h1>
-                <div className="flex items-center justify-center pa4 bg-lightest-blue navy">
-                    <svg className="w1" data-icon="info" viewBox="0 0 32 32">
-                        <title>info icon</title>
-                        <path d={"M16 0 A16 16 0 0 1 16 32 A16 16 0 0 1 16 0 M19 15 L13 15 L13 26 L19 26 z M16 6 A3 3 0 0 0 16 12 A3 3 0 0 0 16 6"} />
-                    </svg>
-                    <span className="lh-title f4 ml3">{`Score: ${this.state.currentScore}`}</span>
-                    <span className="lh-title f4 ml3">{`Remaining Lives: ${this.state.playerLives}`}</span>
-                </div>
-                <h2 className='pa4 f2'>{this.state.incompleteWord}</h2>
+                <ErrorBoundry>
 
-                <TextBox onSearchChange={this.onSearchChange}/>               
-                <a onClick={this.onSubmitClick} className="f6 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib mt2 mid-gray" href="#0">Submit</a>
+                
+                    <div className="flex items-center justify-center pa4 bg-lightest-blue navy">
+                        <svg className="w1" data-icon="info" viewBox="0 0 32 32">
+                            <title>info icon</title>
+                            <path d={"M16 0 A16 16 0 0 1 16 32 A16 16 0 0 1 16 0 M19 15 L13 15 L13 26 L19 26 z M16 6 A3 3 0 0 0 16 12 A3 3 0 0 0 16 6"} />
+                        </svg>
+                        <span className="lh-title f4 ml3">{`Score: ${this.state.currentScore}`}</span>
+                        <span className="lh-title f4 ml3">{`Remaining Lives: ${this.state.playerLives}`}</span>
+                    </div>
+                    <h2 className='pa4 f2'>{this.state.incompleteWord}</h2>
+
+                    <TextBox onSearchChange={this.onSearchChange}/>               
+                    <a onClick={this.onSubmitClick} className="f6 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib mt2 mid-gray" href="#0">Submit</a>
+                </ErrorBoundry>
                 <div className='center'>
                     <ReactPlayer url='https://www.youtube.com/watch?v=cGOeiQfjYPk' />
                 </div>
